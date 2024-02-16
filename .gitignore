@@ -10,4 +10,9 @@
 ###< symfony/framework-bundle ###
 
 ###> PHP Storm
+.idea/*
 .idea/
+.DS_Store
+.DS_Store/*
+public/.DS_Store
+public/.DS_Store/*

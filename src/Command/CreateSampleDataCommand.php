@@ -2,10 +2,12 @@
 
 namespace App\Command;
 
+use App\Entity\ContactFormUrlPost;
 use App\Entity\Enum\LanguageEnum;
 use App\Entity\GeneralData;
 use App\Entity\GlobalTags;
 use App\Entity\PageSeo;
+use App\Repository\ContactFormUrlPostRepository;
 use App\Repository\GeneralDataRepository;
 use App\Repository\GlobalTagsRepository;
 use App\Repository\PageSeoRepository;
@@ -28,6 +30,7 @@ class CreateSampleDataCommand extends Command
         private GeneralDataRepository $generalDataRepository,
         private PageSeoRepository $pageSeoRepository,
         private GlobalTagsRepository $globalTagsRepository,
+        private ContactFormUrlPostRepository $contactFormUrlPostRepository,
         private EntityManagerInterface $em)
     {
         parent::__construct();
@@ -107,7 +110,17 @@ class CreateSampleDataCommand extends Command
         }
 
 
-
+        $contactForm = $this->contactFormUrlPostRepository->findAll();
+        if ($contactForm)
+        {
+            $io->writeln('URL de postagem <comment> já exite</comment>');
+        } else {
+            $io->writeln('Url de postagem <info>criada</info>');
+            $contactForm = new ContactFormUrlPost();
+            $contactForm->setUrl('https://teste.com.br');
+            $this->em->persist($contactForm);
+            $this->em->flush();
+        }
 
         $io->success('Dados injetados com sucesso.');
 

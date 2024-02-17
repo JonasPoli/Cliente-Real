@@ -32,5 +32,5 @@ class GlobalTagsController extends AbstractController
             'form' => $form,
         ]);
     }
-    
+
 }

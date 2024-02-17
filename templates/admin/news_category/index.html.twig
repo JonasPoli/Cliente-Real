@@ -56,9 +56,8 @@
                 <tbody>
                 {% for news_category in news_categories %}
                     <tr>
-                        <td>
-                            {{ news_category.title }}
-                        </td>
+                        <td>{{ news_category.title }}</td>
+                        <td>{{ news_category.language }}</td>
                         <td>
                             <a class="btn btn-primary float-end" href="{{ path('app_admin_news_category_edit', {'id': news_category.id}) }}">editar</a>
                         </td>

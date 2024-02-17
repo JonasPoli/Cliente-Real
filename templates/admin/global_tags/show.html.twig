@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GlobalTags{% endblock %}
+
+{% block body %}
+    <h1>GlobalTags</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ global_tag.id }}</td>
+            </tr>
+            <tr>
+                <th>Ga4</th>
+                <td>{{ global_tag.Ga4 }}</td>
+            </tr>
+            <tr>
+                <th>TagsGoogleAds</th>
+                <td>{{ global_tag.tagsGoogleAds }}</td>
+            </tr>
+            <tr>
+                <th>PixelMetaAds</th>
+                <td>{{ global_tag.pixelMetaAds }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_global_tags_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_global_tags_edit', {'id': global_tag.id}) }}">edit</a>
+
+    {{ include('admin/global_tags/_delete_form.html.twig') }}
+{% endblock %}

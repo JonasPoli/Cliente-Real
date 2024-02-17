@@ -4,8 +4,10 @@ namespace App\Command;
 
 use App\Entity\Enum\LanguageEnum;
 use App\Entity\GeneralData;
+use App\Entity\GlobalTags;
 use App\Entity\PageSeo;
 use App\Repository\GeneralDataRepository;
+use App\Repository\GlobalTagsRepository;
 use App\Repository\PageSeoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -22,7 +24,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class CreateSampleDataCommand extends Command
 {
-    public function __construct(private GeneralDataRepository $generalDataRepository, private PageSeoRepository $pageSeoRepository, private EntityManagerInterface $em)
+    public function __construct(
+        private GeneralDataRepository $generalDataRepository,
+        private PageSeoRepository $pageSeoRepository,
+        private GlobalTagsRepository $globalTagsRepository,
+        private EntityManagerInterface $em)
     {
         parent::__construct();
     }
@@ -72,15 +78,31 @@ class CreateSampleDataCommand extends Command
         $generalData = $this->generalDataRepository->find(1);
         if ($generalData)
         {
-            $io->writeln('General Data '.$index.' <comment> já exite</comment>');
+            $io->writeln('General Data <comment> já exite</comment>');
         } else {
-            $io->writeln('General Data '.$index.' <info>criada</info>');
+            $io->writeln('General Data <info>criada</info>');
             $generalData = new GeneralData();
             $generalData->setEmail('email@dominio.com.br');
             $generalData->setAddress('Rua X, 123');
             $generalData->setPhone('(11) 3333-2222');
 
             $this->em->persist($generalData);
+            $this->em->flush();
+        }
+
+
+        $globalTags = $this->globalTagsRepository->findAll();
+        if ($globalTags)
+        {
+            $io->writeln('Global Tags <comment> já exite</comment>');
+        } else {
+            $io->writeln('Global Tags <info>criada</info>');
+            $globalTags = new GlobalTags();
+            $globalTags->setGa4('GA4');
+            $globalTags->setPixelMetaAds('Meta pixel');
+            $globalTags->setTagsGoogleAds('Google Ads');
+
+            $this->em->persist($globalTags);
             $this->em->flush();
         }
 

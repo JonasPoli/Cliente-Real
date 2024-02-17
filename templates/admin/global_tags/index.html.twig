@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GlobalTags index{% endblock %}
+
+{% block body %}
+    <h1>GlobalTags index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ga4</th>
+                <th>TagsGoogleAds</th>
+                <th>PixelMetaAds</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for global_tag in global_tags %}
+            <tr>
+                <td>{{ global_tag.id }}</td>
+                <td>{{ global_tag.Ga4 }}</td>
+                <td>{{ global_tag.tagsGoogleAds }}</td>
+                <td>{{ global_tag.pixelMetaAds }}</td>
+                <td>
+                    <a href="{{ path('app_admin_global_tags_show', {'id': global_tag.id}) }}">show</a>
+                    <a href="{{ path('app_admin_global_tags_edit', {'id': global_tag.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_global_tags_new') }}">Create new</a>
+{% endblock %}

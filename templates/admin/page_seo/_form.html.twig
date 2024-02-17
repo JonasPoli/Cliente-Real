@@ -1,0 +1,107 @@
+{{ form_start(form) }}
+
+{% set languagesEnum = enum('LanguageEnum') %}
+
+Idioma: {{ languagesEnum.getFlag(page_seo.language)|raw }}
+
+<hr class="mt-4">
+
+<h3>HOME</h3>
+<div class="mb-3">
+    <label for="{{ form.homePageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.homePageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.homePageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.homePageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<hr class="mt-4">
+
+<h3>Sobre Nós</h3>
+<div class="mb-3">
+    <label for="{{ form.aboutUsPageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.aboutUsPageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.aboutUsPageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.aboutUsPageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+
+<hr class="mt-4">
+
+<h3>Lista de Produtos</h3>
+<div class="mb-3">
+    <label for="{{ form.productListingPageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.productListingPageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.productListingPageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.productListingPageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+
+<hr class="mt-4">
+
+<h3>Lista de Notícias</h3>
+<div class="mb-3">
+    <label for="{{ form.newsListingPageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.newsListingPageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.newsListingPageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.newsListingPageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+
+<hr class="mt-4">
+
+<h3>Lista de Serviços</h3>
+<div class="mb-3">
+    <label for="{{ form.serviceListingPageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.serviceListingPageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.serviceListingPageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.serviceListingPageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+
+<hr class="mt-4">
+
+<h3>Lista de Financeamentos</h3>
+<div class="mb-3">
+    <label for="{{ form.financingListPageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.financingListPageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.financingListPageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.financingListPageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+
+<hr class="mt-4">
+
+<h3>Lista de Vídeos</h3>
+<div class="mb-3">
+    <label for="{{ form.videoListingPageTitle.vars.id }}" class="form-label">Titulo</label>
+    {{ form_widget(form.videoListingPageTitle, {'attr':{'class':'form-control'}}) }}
+</div>
+
+<div class="mb-3">
+    <label for="{{ form.videoListingPageDescription.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.videoListingPageDescription, {'attr':{'class':'form-control'}}) }}
+</div>
+
+
+
+
+<button class="btn btn-info text-white float-start mb-5">Salvar</button>
+{{ form_end(form) }}

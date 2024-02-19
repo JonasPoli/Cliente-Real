@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Novo Banner{% endblock %}
+
+{% block body %}
+    <h1>Novo Banner</h1>
+
+    {{ include('admin/banner/_form.html.twig') }}
+
+    <a class="btn btn-secondary float-start ms-3 text-white" href="{{ path('app_admin_banner_index') }}">Voltar</a>
+{% endblock %}

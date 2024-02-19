@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% set languagesEnum = enum('LanguageEnum') %}
+{% block title %}Lista de Linha do Tempo{% endblock %}
+{% block javascripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#tabela').DataTable({
+                "lengthMenu": [[ 10, 25, 50, 100,-1], [ 10, 25, 50, 100,"Todos"]],
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ registros por página",
+                    "zeroRecords": "Nada encontrado",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "search": " Pesquisar",
+
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Última",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+{% block body %}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+
+
+    <div class="row text-end">
+        <div class="col">
+            <a class="mb-3 btn btn-success text-white" href="{{ path('app_admin_time_line_new') }}">Novo</a>
+        </div>
+
+    </div>
+    <div class="card mb-5">
+        <h5 class="card-header">Linha do Tempo</h5>
+        <div class="card-body">
+            <table class="table" id="tabela">
+                <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Posição</th>
+                    <th>Título</th>
+                    <th>Data</th>
+                    <th>Idioma</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for time_line in time_lines %}
+                    <tr>
+                        <td>
+                            {% if time_line.status == 1 %}
+                                <span class="badge badge-sm bg-success ms-auto">Ativo</span>
+                            {% else %}
+                                <span class="badge badge-sm bg-danger  ms-auto">Inativo</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ time_line.position }}</td>
+                        <td>{{ time_line.title }}</td>
+                        <td>{{ time_line.date|date('d/m/Y') }}</td>
+                        <td>{{ languagesEnum.getFlag(time_line.language)|raw }}</td>
+                        <td>
+                            <a class="btn btn-primary float-end" href="{{ path('app_admin_time_line_edit', {'id': time_line.id}) }}">editar</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>Sem registros</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

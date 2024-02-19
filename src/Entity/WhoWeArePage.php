@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\WhoWeArePageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: WhoWeArePageRepository::class)]
+#[Vich\Uploadable]
 class WhoWeArePage
 {
     #[ORM\Id]
@@ -28,6 +31,15 @@ class WhoWeArePage
 
     #[ORM\Column(nullable: true)]
     private ?int $language = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image1 = null;
+
+    #[Vich\UploadableField(mapping: 'whoWeAreImage',fileNameProperty: 'image1')]
+    private ?File $imageFile1 = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $imgUpdatedAt1 = null;
 
     public function getId(): ?int
     {
@@ -93,4 +105,40 @@ class WhoWeArePage
 
         return $this;
     }
+
+    public function getImage1(): ?string
+    {
+        return $this->image1;
+    }
+
+    public function setImage1(?string $image1): static
+    {
+        $this->image1 = $image1;
+
+        return $this;
+    }
+
+    public function getImageFile1(): ?File
+    {
+        return $this->imageFile1;
+    }
+
+    public function setImageFile1(?File $imageFile1 = null):void
+    {
+        $this->imageFile1 = $imageFile1;
+        if (null !== $imageFile1){
+            $this->imgUpdatedAt1 = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImgUpdatedAt1(): ?\DateTimeImmutable
+    {
+        return $this->imgUpdatedAt1;
+    }
+
+    public function setImgUpdatedAt1(?\DateTimeImmutable $imgUpdatedAt1): void
+    {
+        $this->imgUpdatedAt1 = $imgUpdatedAt1;
+    }
+
 }

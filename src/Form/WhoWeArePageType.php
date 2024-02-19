@@ -25,6 +25,18 @@ class WhoWeArePageType extends AbstractType
                 'asset_helper' => false,
                 'download_uri' => false,
             ])
+            ->add('imageFile2', VichFileType::class,[
+                'required' => false,
+                'allow_delete' => false,
+                'asset_helper' => false,
+                'download_uri' => false,
+            ])
+            ->add('imageFile3', VichFileType::class,[
+                'required' => false,
+                'allow_delete' => false,
+                'asset_helper' => false,
+                'download_uri' => false,
+            ])
         ;
     }
 

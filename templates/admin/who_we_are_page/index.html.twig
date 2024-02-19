@@ -1,6 +1,7 @@
+
 {% extends 'base.html.twig' %}
 {% set languagesEnum = enum('LanguageEnum') %}
-{% block title %}Lista de Banenrs{% endblock %}
+{% block title %}Lista de Quem Somos{% endblock %}
 {% block javascripts %}
     <script
             src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -37,47 +38,23 @@
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
 
 
-    <div class="row text-end">
-        <div class="col">
-            <a class="mb-3 btn btn-success text-white" href="{{ path('app_admin_banner_new') }}">Novo</a>
-        </div>
-
-    </div>
     <div class="card mb-5">
-        <h5 class="card-header">Banners</h5>
+        <h5 class="card-header">Quem Somos</h5>
         <div class="card-body">
             <table class="table" id="tabela">
                 <thead>
                 <tr>
-                    <th>Status</th>
-                    <th>Posição</th>
-                    <th>Imagem</th>
-                    <th>Título</th>
                     <th>Idioma</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for banner in banners %}
+                {% for who_we_are_page in who_we_are_pages %}
                     <tr>
-                        <td>
-                            {% if banner.active == 1 %}
-                            <span class="badge badge-sm bg-success ms-auto">Ativo</span>
-                            {% else %}
-                            <span class="badge badge-sm bg-danger  ms-auto">Inativo</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ banner.position }}</td>
-                        <td>
-                            {% if banner.imageFile is not empty %}
-                            <img src="{{ vich_uploader_asset(banner,'imageFile') }}" width="75">
-                            {% endif %}
-                        </td>
-                        <td>{{ banner.title }}</td>
-                        <td>{{ languagesEnum.getFlag(banner.language)|raw }}
+                        <td>{{ languagesEnum.getFlag(who_we_are_page.language)|raw }}
                         </td>
                         <td>
-                            <a class="btn btn-primary float-end" href="{{ path('app_admin_banner_edit', {'id': banner.id}) }}">editar</a>
+                            <a class="btn btn-primary float-end" href="{{ path('app_admin_who_we_are_page_edit', {'id': who_we_are_page.id}) }}">editar</a>
                         </td>
                     </tr>
                 {% else %}
@@ -92,3 +69,5 @@
 
 
 {% endblock %}
+
+

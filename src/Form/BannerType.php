@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Banner;
+use App\Entity\Enum\LanguageEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +17,9 @@ class BannerType extends AbstractType
         $builder
             ->add('title')
             ->add('subtitle')
+            ->add('language',ChoiceType::class,[
+                'choices' => LanguageEnum::getOptions(),
+            ])
             ->add('active', ChoiceType::class, [
                 'choices'  => [
                     'Ativo' => 1,

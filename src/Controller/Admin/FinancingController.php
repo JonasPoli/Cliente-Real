@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Financing;
-use App\Form\FinancingType;
 use App\Repository\FinancingRepository;
+use App\Twig\FinancingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

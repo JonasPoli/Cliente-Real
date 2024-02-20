@@ -3,9 +3,10 @@
 {% block title %}Nova propriedade do produto{% endblock %}
 
 {% block body %}
-    <h1>Nova propriedade do produto</h1>
+    <h1>{{ product.title }}</h1>
+    <h4>Nova Propriedades do produto</h4>
 
     {{ include('admin/product_property_value/_form.html.twig') }}
 
-    <a class="btn btn-secondary float-start ms-3 text-white" href="{{ path('app_admin_product_property_value_index') }}">voltar</a>
+    <a class="btn btn-secondary float-start ms-3 text-white" href="{{ path('app_admin_product_property_value_index',{'productId':product.id}) }}">voltar</a>
 {% endblock %}

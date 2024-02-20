@@ -75,6 +75,7 @@
                         <td>{{ languagesEnum.getFlag(product.language)|raw }}
                         </td>
                         <td>
+                            <a class="btn btn-success float-end ms-2 text-white" href="{{ path('app_admin_product_property_value_index', {'productId': product.id}) }}">Propriedades</a>
                             <a class="btn btn-primary float-end" href="{{ path('app_admin_product_edit', {'id': product.id}) }}">editar</a>
                         </td>
                     </tr>

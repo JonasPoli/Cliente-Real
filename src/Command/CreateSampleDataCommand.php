@@ -7,11 +7,13 @@ use App\Entity\Enum\LanguageEnum;
 use App\Entity\GeneralData;
 use App\Entity\GlobalTags;
 use App\Entity\PageSeo;
+use App\Entity\User;
 use App\Entity\WhoWeArePage;
 use App\Repository\ContactFormUrlPostRepository;
 use App\Repository\GeneralDataRepository;
 use App\Repository\GlobalTagsRepository;
 use App\Repository\PageSeoRepository;
+use App\Repository\UserRepository;
 use App\Repository\WhoWeArePageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -21,6 +23,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'app:create-sample-data',
@@ -34,6 +37,8 @@ class CreateSampleDataCommand extends Command
         private GlobalTagsRepository $globalTagsRepository,
         private ContactFormUrlPostRepository $contactFormUrlPostRepository,
         private WhoWeArePageRepository $whoWeArePageRepository,
+        private UserRepository $userRepository,
+        private UserPasswordHasherInterface $passwordHasher,
         private EntityManagerInterface $em)
     {
         parent::__construct();
@@ -144,6 +149,28 @@ class CreateSampleDataCommand extends Command
             $contactForm = new ContactFormUrlPost();
             $contactForm->setUrl('https://teste.com.br');
             $this->em->persist($contactForm);
+            $this->em->flush();
+        }
+
+        $admin = $this->userRepository->findAll();
+        if ($admin)
+        {
+            $io->writeln('Admin <comment> já exite</comment>');
+        } else {
+            $io->writeln('Admin <info>criado</info>');
+            $user = new User();
+            $user->setEmail('admin@wab.com.br');
+            $user->setRoles(["ROLE_ADMIN"]);
+            $plaintextPassword = "wab12345678";
+
+            // hash the password (based on the security.yaml config for the $user class)
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $plaintextPassword
+            );
+            $user->setPassword($hashedPassword);
+
+            $this->em->persist($user);
             $this->em->flush();
         }
 

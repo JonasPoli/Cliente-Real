@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/product/property')]
+#[Route('/admin/product-property')]
 class ProductPropertyController extends AbstractController
 {
     #[Route('/', name: 'app_admin_product_property_index', methods: ['GET'])]

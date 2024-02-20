@@ -51,10 +51,8 @@
             <table class="table" id="tabela">
                 <thead>
                 <tr>
-                    <th>Produto</th>
                     <th>Propriedade</th>
                     <th>Valor</th>
-                    <th>Idioma</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -63,9 +61,7 @@
                     <tr>
 
                         <td>{{ product_property_value.product.title }}</td>
-                        <td>{{ product_property_value.productProperty.title }}</td>
                         <td>{{ product_property_value.value }}</td>
-                        <td>{{ languagesEnum.getFlag(product_property_value.language)|raw }}
                         </td>
                         <td>
                             <a class="btn btn-primary float-end" href="{{ path('app_admin_product_property_value_edit', {'id': product_property_value.id,'productId':product.id}) }}">editar</a>

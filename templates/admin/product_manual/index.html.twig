@@ -51,7 +51,6 @@
             <table class="table" id="tabela">
                 <thead>
                 <tr>
-                    <th>Produto</th>
                     <th>Título</th>
                     <th></th>
                 </tr>
@@ -59,8 +58,6 @@
                 <tbody>
                 {% for product_manual in product_manuals %}
                     <tr>
-
-                        <td>{{ product_manual.product.title }}</td>
                         <td>{{ product_manual.title }}</td>
                         <td>
                             {% if product_manual.manualFile is not empty %}

@@ -51,7 +51,6 @@
             <table class="table" id="tabela">
                 <thead>
                 <tr>
-                    <th>Produto</th>
                     <th>Imagem</th>
                     <th>Título</th>
                     <th>Alt</th>
@@ -61,8 +60,6 @@
                 <tbody>
                 {% for product_image in product_images %}
                     <tr>
-
-                        <td>{{ product_image.product.title }}</td>
                         <td>
                             {% if product_image.imageFile is not empty %}
                                 <img src="{{ vich_uploader_asset(product_image,'imageFile') }}" width="75">

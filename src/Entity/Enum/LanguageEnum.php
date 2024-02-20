@@ -17,6 +17,15 @@ enum LanguageEnum: int
         ];
     }
 
+    public static function getAbbreviations():array
+    {
+        return [
+            'pt' => self::PORTUGUESE->value,
+            'es' => self::SPANISH->value,
+            'en' => self::ENGLISH->value,
+        ];
+    }
+
     public static function getDescription($i):string
     {
         $n = [

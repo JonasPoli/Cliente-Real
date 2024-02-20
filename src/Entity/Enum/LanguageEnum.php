@@ -26,6 +26,17 @@ enum LanguageEnum: int
         ];
     }
 
+    public static function getId($i):string
+    {
+        $n = [
+             'pt' => self::PORTUGUESE->value,
+             'es' => self::SPANISH->value,
+             'en' => self::ENGLISH->value,
+            "" => '',
+        ];
+
+        return $n[$i];
+    }
     public static function getDescription($i):string
     {
         $n = [

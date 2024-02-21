@@ -12,4 +12,11 @@
     {{ globalTags.tagsGoogleAds }}<br>
     {{ globalTags.ga4 }}<br>
     {{ urlToPostForm.url }}<br>
+
+    <h1>Produtos</h1>
+    <ul>
+    {% for product in allProducts %}
+    <li><a href="{{ path('app_product_detail',{'slug':product.slug}) }}" >{{ product.title  }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}

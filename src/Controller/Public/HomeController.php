@@ -7,6 +7,7 @@ use App\Repository\BannerRepository;
 use App\Repository\FinancingRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ProductCategoryRepository;
+use App\Repository\ProductRepository;
 use App\Repository\TestimonyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,35 +101,47 @@ class HomeController extends BaseController
     }
 
     #[Route('/noticia/{slug}', name: 'app_new_detail')]
-    public function new($slug): Response
+    public function new($slug, NewsRepository $newsRepository): Response
     {
+        $news = $newsRepository->findOneBy(['slug'=>$slug]);
         return $this->render('public/news/news-detail.html.twig', [
             'pageSeo' => $this->pageSeo,
             'generalData' => $this->generalData,
             'globalTags' => $this->globalTags,
             'urlToPostForm' =>$this->urlToPostForm,
+            'news' => $news,
         ]);
     }
     #[Route('/produtos', name: 'app_products')]
-    public function products(): Response
+    public function products(ProductRepository $productRepository): Response
     {
+
+        $allProducts = $productRepository->findBy([
+            'status' => 1,
+            'language' => $this->getLanguageId(),
+        ]);
 
         return $this->render('public/product/product.html.twig', [
             'pageSeo' => $this->pageSeo,
             'generalData' => $this->generalData,
             'globalTags' => $this->globalTags,
             'urlToPostForm' =>$this->urlToPostForm,
+            'allProducts' => $allProducts,
         ]);
     }
 
     #[Route('/produto/{slug}', name: 'app_product_detail')]
-    public function nproduct($slug): Response
+    public function product($slug, ProductRepository $productRepository): Response
     {
+        $product = $productRepository->findOneBy([
+            'slug' => $slug
+        ]);
         return $this->render('public/product/product-detail.html.twig', [
             'pageSeo' => $this->pageSeo,
             'generalData' => $this->generalData,
             'globalTags' => $this->globalTags,
             'urlToPostForm' =>$this->urlToPostForm,
+            'product' =>$product,
         ]);
     }
 

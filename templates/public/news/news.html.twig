@@ -13,7 +13,9 @@
     {{ globalTags.ga4 }}<br>
     {{ urlToPostForm.url }}<br>
 
+    <ul>
     {% for news in allNews %}
-        {{ news.title }}<br>
+        <li><a href="{{ path('app_new_detail',{'slug':news.slug}) }}">{{ news.title }}</a></li>
     {% endfor %}
+    </ul>
 {% endblock %}

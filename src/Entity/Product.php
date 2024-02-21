@@ -63,6 +63,9 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductManual::class, mappedBy: 'product')]
     private Collection $productManuals;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->productPropertyValues = new ArrayCollection();
@@ -293,6 +296,18 @@ class Product
                 $productManual->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

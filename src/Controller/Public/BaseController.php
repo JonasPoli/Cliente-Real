@@ -31,7 +31,13 @@ class BaseController extends AbstractController
     )
     {
         $this->session = new Session();
-        $this->localeSwitcher->setLocale($this->session->get('language'));
+        if ($this->session->has('language')){
+            $this->localeSwitcher->setLocale($this->session->get('language'));
+        } else {
+            $this->session->set('language','pt');
+            $this->localeSwitcher->setLocale('pt');
+        }
+
 
         $this->languageId = LanguageEnum::getId($this->session->get('language'));
         $this->pageSeo = $pageSeoRepository->findOneBy(['language' => $this->languageId]);

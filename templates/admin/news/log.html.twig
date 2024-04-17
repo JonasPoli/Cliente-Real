@@ -38,9 +38,7 @@
 
 
     <div class="row text-end">
-        <div class="col">
-            <a class="mb-3 btn btn-success text-white" href="{{ path('app_admin_news_new') }}">Nova</a>
-        </div>
+
 
     </div>
     <div class="card mb-5">
@@ -49,46 +47,33 @@
             <table class="table" id="tabela">
                 <thead>
                 <tr>
-                    <th>Mostrar no Site</th>
-                    <th>Destaque</th>
-                    <th>Imagem</th>
-                    <th>Título</th>
-                    <th>Data</th>
-                    <th>Idioma</th>
-                    <th></th>
+                    <th style="min-width: 150px">Data e Hora</th>
+                    <th>Ação</th>
+                    <th>Usuário</th>
+                    <th>Mudanças</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for newsItem in news %}
+                {% for log in logs %}
                     <tr>
-                        <td>
-                            {% if newsItem.status == 1 %}
-                                <span class="badge badge-sm bg-success ms-auto">Ativo</span>
-                            {% else %}
-                                <span class="badge badge-sm bg-danger  ms-auto">Inativo</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if newsItem.highlighted == 1 %}
-                                <span class="badge badge-sm bg-success ms-auto">Ativo</span>
-                            {% else %}
-                                <span class="badge badge-sm bg-danger  ms-auto">Inativo</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if newsItem.imageFile is not empty %}
-                                <img src="{{ vich_uploader_asset(newsItem,'imageFile') }}" width="75">
-                            {% endif %}
-                        </td>
-                        <td>{{ newsItem.title }}</td>
-                        <td>{{ newsItem.date|date('d/m/Y') }}</td>
-                        <td>{{ languagesEnum.getFlag(newsItem.language)|raw }}
-                        </td>
-                        <td>
-                            <a class="btn btn-primary float-end" href="{{ path('app_admin_news_edit', {'id': newsItem.id}) }}">editar</a>
-                            <a class="btn btn-warning float-end" href="{{ path('app_admin_news_log', {'id': newsItem.id}) }}">log</a>
-                            <a class="btn btn-success float-end text-white me-2" href="{{ path('app_admin_news_image_index', {'newsId': newsItem.id}) }}">Imagens</a>
-                        </td>
+                        <td>{{ log.dateTime|date('Y-m-d H:i:s') }}</td>
+                     <td>
+                         {% if log.action == 'update' %}
+                             <span class="badge bg-primary">Atualização</span>
+                         {% endif %}
+
+                         {% if log.action == 'delete' %}
+                             <span class="badge bg-danger">Remoção</span>
+                         {% endif %}
+
+                         {% if log.action == 'insert' %}
+                             <span class="badge bg-success">Inserção</span>
+                         {% endif %}
+
+                     </td>
+
+                     <td>{{ log.user.email }}</td>
+                     <td>{{ log.changedFields|json_encode()|raw }}</td>
                     </tr>
                 {% else %}
                     <tr>

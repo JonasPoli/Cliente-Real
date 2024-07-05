@@ -111,25 +111,27 @@ class EventChangeNotifier
 
     public function logChange($em, $entity, $action, $data)
     {
+        if ( $this->security->getUser()) {
 
-        // Limitar log por entidade
-        //        if (
-        //            get_class($entity) != 'App\Entity\Banner' AND
-        //            get_class($entity) != 'App\Entity\News'
-        //        ){
-        //            return;
-        //        }
+            // Limitar log por entidade
+            //        if (
+            //            get_class($entity) != 'App\Entity\Banner' AND
+            //            get_class($entity) != 'App\Entity\News'
+            //        ){
+            //            return;
+            //        }
 
 
-        $query = 'INSERT INTO log (entity, action, date_time, changed_fields, user_id, entity_id) VALUES (?,?,?,?,?,?);';
-        $smtp = $em->getConnection()->prepare($query);
-        $smtp->bindValue(1, get_class($entity));
-        $smtp->bindValue(2,$action);
-        $smtp->bindValue(3, date('Y-m-d H:i:s'));
-        $smtp->bindValue(4, json_encode( $data ) );
-        $smtp->bindValue(5, $this->security->getUser()->getId());
-        $smtp->bindValue(6, $entity->getId());
-        $smtp->executeStatement();
+            $query = 'INSERT INTO log (entity, action, date_time, changed_fields, user_id, entity_id) VALUES (?,?,?,?,?,?);';
+            $smtp = $em->getConnection()->prepare($query);
+            $smtp->bindValue(1, get_class($entity));
+            $smtp->bindValue(2, $action);
+            $smtp->bindValue(3, date('Y-m-d H:i:s'));
+            $smtp->bindValue(4, json_encode($data));
+            $smtp->bindValue(5, $this->security->getUser()->getId());
+            $smtp->bindValue(6, $entity->getId());
+            $smtp->executeStatement();
+        }
     }
 
 
